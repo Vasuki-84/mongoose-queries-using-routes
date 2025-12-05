@@ -1,15 +1,24 @@
 const mongoose = require("mongoose");
-const dbconnection = require("../../../../../MERN_Entri/Backend/mongoose/config/dbconnection.config");
 
-const dbAtlas = async () => {
+const dbconnection = async () => {
   try {
-    await mongoose.connect(process.env.dbport, {
-      ssl: true,
-      tlsAllowInvalidCertificates: false,
-    });
-    console.log("database Atlas connected succcesfully");
+    await mongoose.connect(process.env.dbport);
+    console.log("connection success");
   } catch (err) {
-    console.log("database Atlas connection failed");
+    console.log("connection failed");
   }
 };
-module.exports= dbconnection;
+module.exports = dbconnection;
+
+// const dbAtlas = async () => {
+//   try {
+//     await mongoose.connect(process.env.dbport, {
+//       ssl: true,
+//       tlsAllowInvalidCertificates: false,
+//     });
+//     console.log("database Atlas connected succcesfully");
+//   } catch (err) {
+//     console.log("database Atlas connection failed");
+//   }
+// };
+// module.exports= dbconnection;
