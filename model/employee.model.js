@@ -13,7 +13,7 @@ const employeeSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  companyName: {
+  email: {
     type: String,
     required: true,
   },

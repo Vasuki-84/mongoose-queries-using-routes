@@ -2,13 +2,13 @@ const employeeModel = require("../model/employee.model");
 
 // POST API
 const createEmployee = async (req, res) => {
-  const { name, role, salary, companyName } = req.body;
+  const { name, role, salary, email } = req.body;
 
   try {
-    if (!name || !role || !salary || !companyName) {
+    if (!name || !role || !salary || !email) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    const newEmployee = new employeeModel({ name, role, salary, companyName });
+    const newEmployee = new employeeModel({ name, role, salary, email });
     await newEmployee.save(); // insert option in database
     res.status(201).json({ message: "New Employee Added" });
   } catch (err) {
