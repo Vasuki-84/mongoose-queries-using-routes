@@ -37,9 +37,38 @@ const getEmployeeById = async (req, res) => {
     }
     return res.status(200).json(employees);
   } catch (err) {
-    res.status(500).json({message:"Employee not found"});
+    res.status(500).json({ message: "Employee not found" });
   }
 };
 
+// PUT API / update employees
+const updateEmployees = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const employees = await employeeModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    }); // find the id and update the datas ,{new:true}=> deletes the old data and add new data
+    res.status(400).json({ message: "employee updated" });
+  } catch (err) {
+    res.status(500).json({ message: "employee update failed" });
+  }
+};
 
-module.exports = { createEmployee, getAllEmployees,getEmployeeById };
+// DELETE API
+const deleteEmployee = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await employeeModel.findByIdAndDelete(id);
+    res.status(200).json({ message: "Employee deletedd" });
+  } catch (err) {
+    res.status(500).json({ message: "Employee not deleted" });
+  }
+};
+
+module.exports = {
+  createEmployee,
+  getAllEmployees,
+  getEmployeeById,
+  updateEmployees,
+  deleteEmployee
+};
