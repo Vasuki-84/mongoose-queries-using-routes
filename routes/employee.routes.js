@@ -8,6 +8,7 @@ const {
   updateEmployees,
   deleteEmployee,
 } = require("../Controller/employee.controller");
+
 const authMiddleware = require("../middleware/authmiddleware");
 
 // access - admin

@@ -54,11 +54,11 @@ const loginUser = async (req, res) => {
 
   // JWT Token genaration
   const Token = jwt.sign(
-    { user: user._id, name: user.name, email: user.email },
+    { user: user._id, name: user.name, email: user.email, role: user.role },
     process.env.secret_key,
     { expiresIn: "24h" }
   );
-  res.status(200).json({ message: "login successful",Token:Token });
+  res.status(200).json({ message: "login successful", Token: Token });
 }; // jwt genarates unique secret key
 
 module.exports = { registerAPI, loginUser };

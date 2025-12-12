@@ -10,7 +10,7 @@ const authMiddleware = (allowedRoles = []) => {
 
     // to check the token is got correctly : if no token or token without headers we pass a error
     if (!authHeaders || !authHeaders.startsWith("Bearer")) {
-      return res.status(401).json({ message: "unauthorized" });
+      return res.status(401).json({ message: "unauthorized : No token provided" });
     }
     // Bearer adsfdfdfdfdjfbfjgfjhgfghfgvb
 
