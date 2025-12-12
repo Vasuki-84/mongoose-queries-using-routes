@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 // Register API for user
-
 // POST = method
 
 const registerAPI = async (req, res) => {
@@ -37,7 +36,7 @@ const registerAPI = async (req, res) => {
   }
 };
 
-// User login API
+//  *User login API
 // POST api
 
 const loginUser = async (req, res) => {
@@ -59,7 +58,7 @@ const loginUser = async (req, res) => {
     process.env.secret_key,
     { expiresIn: "24h" }
   );
-  res.status(200).json({ message: "login successful" });
+  res.status(200).json({ message: "login successful",Token:Token });
 }; // jwt genarates unique secret key
 
 module.exports = { registerAPI, loginUser };
