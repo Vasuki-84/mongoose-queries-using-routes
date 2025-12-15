@@ -1,8 +1,12 @@
+console.log("SERVER FILE LOADED");
+
+
 const express = require("express");
 const app = express();
+app.use(express.json()); // use middleware
 require("dotenv").config();
 const dbConnection = require("./config/dbConnection.config"); // import config folder
-app.use(express.json()); // use middleware
+
 const employeeRoutes = require("./routes/employee.routes");
 const userRoutes = require("./routes/user.routes");
 

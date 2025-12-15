@@ -2,17 +2,21 @@ const employeeModel = require("../model/employee.model");
 
 // POST API
 const createEmployee = async (req, res) => {
-  const { name, role, salary, email } = req.body;
+
+  
+  const { name, email, salary, role } = req.body;
 
   try {
-    if (!name || !role || !salary || !email) {
+    if (!name || !email || !salary || !role) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    const newEmployee = new employeeModel({ name, role, salary, email });
+    console.log("error");
+    const newEmployee = new employeeModel({ name, email, salary, role });
     await newEmployee.save(); // insert option in database
     res.status(201).json({ message: "New Employee Added" });
   } catch (err) {
     res.status(500).json({ message: "Employee not added " });
+    console.log(err.message);
   }
 };
 
@@ -48,7 +52,7 @@ const updateEmployees = async (req, res) => {
     const employees = await employeeModel.findByIdAndUpdate(id, req.body, {
       new: true,
     }); // find the id and update the datas ,{new:true}=> deletes the old data and add new data
-    res.status(400).json({ message: "employee updated" });
+    res.status(200).json({ message: "employee updated" });
   } catch (err) {
     res.status(500).json({ message: "employee update failed" });
   }
@@ -59,7 +63,7 @@ const deleteEmployee = async (req, res) => {
   const { id } = req.params;
   try {
     await employeeModel.findByIdAndDelete(id);
-    res.status(200).json({ message: "Employee deletedd" });
+    res.status(200).json({ message: "Employee deleted" });
   } catch (err) {
     res.status(500).json({ message: "Employee not deleted" });
   }
@@ -70,5 +74,5 @@ module.exports = {
   getAllEmployees,
   getEmployeeById,
   updateEmployees,
-  deleteEmployee
+  deleteEmployee,
 };

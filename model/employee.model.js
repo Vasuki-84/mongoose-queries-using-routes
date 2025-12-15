@@ -18,6 +18,6 @@ const employeeSchema = mongoose.Schema({
     required: true,
   },
 });
-const employeeDetails = new mongoose.model("employeeDetails", employeeSchema);
+const Employee = mongoose.model("Employee", employeeSchema);
+module.exports = Employee;
 
-module.exports = employeeDetails;
