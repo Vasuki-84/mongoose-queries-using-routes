@@ -40,28 +40,31 @@ const registerAPI = async (req, res) => {
 // POST api
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = await userModel.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ message: "User not registered" });
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not registered" });
+    }
+
+    const passwordCheck = await bcrypt.compare(password, user.password); // hash and compare with registered pw
+    if (!passwordCheck) {
+      return res.status(401).json({ message: "Password doesn't match" });
+    }
+
+    // JWT Token genaration
+    const Token = jwt.sign(
+      { user: user._id, name: user.name, email: user.email, role: user.role },
+      process.env.SECRET_KEY,
+      { expiresIn: "24h" }
+    );
+    res.status(200).json({ message: "login successful", Token: Token });
+  } catch (err) {
+    return res.status(500).json({
+      message: err.message,
+    });
   }
-
-  const passwordCheck = await bcrypt.compare(password, user.password); // hash and compare with registered pw
-  if (!passwordCheck) {
-    return res.status(401).json({ message: "Password doesn't match" });
-  }
-
-  // JWT Token genaration
-  const Token = jwt.sign(
-    { user: user._id, 
-      name: user.name,
-       email: user.email,
-        role: user.role },
-    process.env.secret_key,
-    { expiresIn: "24h" }
-  );
-  res.status(200).json({ message: "login successful", Token: Token });
 }; // jwt genarates unique secret key
 
 module.exports = { registerAPI, loginUser };
