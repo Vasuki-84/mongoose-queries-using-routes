@@ -1,3 +1,5 @@
+
+
 const userModel = require("../model/user.model");
 
 // install jsonwebtoken bcryptjs
@@ -31,8 +33,10 @@ const registerAPI = async (req, res) => {
     });
     await newUser.save();
     res.status(201).json({ message: "user registered" });
+    console.log(newUser);
   } catch (err) {
     res.status(500).json({ message: "user not registered" });
+    console.log(err);
   }
 };
 
@@ -40,6 +44,7 @@ const registerAPI = async (req, res) => {
 // POST api
 
 const loginUser = async (req, res) => {
+  console.log( req.body);
   try {
     const { email, password } = req.body;
 
@@ -61,6 +66,7 @@ const loginUser = async (req, res) => {
     );
     res.status(200).json({ message: "login successful", Token: Token });
   } catch (err) {
+      console.error("Login error:", err);
     return res.status(500).json({
       message: err.message,
     });

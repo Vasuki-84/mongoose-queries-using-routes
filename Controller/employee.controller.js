@@ -2,8 +2,6 @@ const employeeModel = require("../model/employee.model");
 
 // POST API
 const createEmployee = async (req, res) => {
-
-  
   const { name, email, salary, role } = req.body;
 
   try {

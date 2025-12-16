@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 app.use(express.json()); // use middleware
 require("dotenv").config();
+
 const cors = require("cors");
 const dbConnection = require("./config/dbConnection.config"); // import config folder
 
